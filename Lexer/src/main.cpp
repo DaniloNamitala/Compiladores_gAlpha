@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "antlr4-runtime.h"
-#include "../lib/DeskLangLexer.h"
+#include "../lib/DeskLang.h"
 
 using namespace std;
 using namespace antlr4;
@@ -15,10 +15,11 @@ int main(int argc, char** argv) {
   char* filename = argv[1];
   ifstream file(filename);
   ANTLRInputStream stream(file);
-  DeskLangLexer lexer(&stream);
+  DeskLang lexer(&stream);
 
   while(!lexer.hitEOF) {
-    cout << lexer.getToken()->toString() << endl;
+    auto token = lexer.nextToken();
+    cout << token->toString() << endl;
   }
   return 0;
 }

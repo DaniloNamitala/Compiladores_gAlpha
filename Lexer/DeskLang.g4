@@ -1,27 +1,27 @@
-grammar DeskLang;
+lexer grammar DeskLang;
+fragment LETRA: [a-zA-Z];
+fragment NUMERO: [0-9];
 
-fragment C: [a-zA-Z];
-fragment D: [0-9];
-
-IF: 'SE';
-ELSE: 'SENAO';
-WHILE: 'ENQUANTO';
-DO: 'FAZ';
-IN: 'ENTRADA';
-OUT: 'SAIDA';
-BEGIN: 'INICIO';
-END: 'END';
-RETURN: 'RETORNA';
+KWIF: 'SE';
+KWELSE: 'SENAO';
+KWWHILE: 'ENQUANTO';
+KWDO: 'FAZ';
+KWIN: 'ENTRADA';
+KWOUT: 'SAIDA';
+KWBEGIN: 'INICIO';
+KWEND: 'END';
+KWRETURN: 'RETORNA';
 BOOLCONST: ('VDD'|'FAL');
 DATATP: ('REAL'|'INTE'|'BOOL'|'CHAR');
 ARITOP: ('MAIS'|'MENOS'|'MULT'|'DIVI');
 LOGOP: ('>'|'<'|'>='|'<='|'=='|'<>');
-INTECONST: D+;
-REALCONSNT: D+'.'D+;
+INTECONST: NUMERO+;
+REALCONST: NUMERO+'.'NUMERO+;
 CHARCONST: '"'(.~'"')*'"';
 VALATRIB: '=';
 TPATRIB: ':';
 DELIM: ',';
-IDENT: '_'?D(D|C)*;
-
-WS: [ \n\r\t]* ->skip;
+IDENT: LETRA(LETRA|NUMERO)*;
+AP: '(';
+FP: ')';
+WS : [ \t\r\n]+ -> skip ;
