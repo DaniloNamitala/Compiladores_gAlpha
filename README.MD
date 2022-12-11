@@ -30,7 +30,7 @@ Caso seja feito mais alguma alteração no `main.cpp` é necessário executar o 
 Após o `make`, foi criado o arquivo executável do programa em c++, com isso é possível fazer a análise léxica dos arquivos com o comando `./main [nome_arquivo]`, como por exemplo:
 
 ```
-./main ..fatorial.dskl
+./main ../fatorial.dskl
 ```
 
 Com isso é esperado o retorno da análise léxica do seu programa.
