@@ -19,7 +19,9 @@ int main(int argc, char** argv) {
 
   while(!lexer.hitEOF) {
     auto token = lexer.nextToken();
-    cout << token->toString() << endl;
+    cout << "Token: " + token->toString() << endl;
+    cout << "   Lexema: " + token->getText() << endl;
+    cout << "   Classe: " + lexer.getVocabulary().getDisplayName(token->getType()) << endl;
   }
   return 0;
 }
