@@ -1,2 +1,4 @@
 Lexer/.antlr/
 .vscode/
+Lexer/lib/
+Lexer/output/
