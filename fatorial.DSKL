@@ -1,4 +1,4 @@
-REAL FAZ  fatorial(n : Inte)
+REAL FAZ fatorial(n : Inte)
 INICIO
   aux REAL = n
   result : REAL = n
