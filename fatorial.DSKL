@@ -1,0 +1,12 @@
+REAL FAZ  fatorial(n : Inte)
+INICIO
+  aux REAL = n
+  result : REAL = n
+  ENQUANTO aux > 1
+  INICIO
+    aux = aux MENOS 1
+    result = result MULT aux
+  RETORNA result
+FIM
+
+SAIDA = fatorial(5)
