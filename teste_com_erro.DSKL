@@ -1,0 +1,8 @@
+valor INTE = 10
+acumulador INTE = 0
+i INTE = 1
+ENQUANTO i <= valor
+INICIO
+    acumulador = acumulador MULT i
+F!M
+SAIDA = acumulador
