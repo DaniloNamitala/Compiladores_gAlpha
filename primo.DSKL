@@ -1,0 +1,14 @@
+BOOL FAZ primo(n : INTE)
+INICIO
+  resultado INTE = n MOD 2
+  SE INTE == 0
+    INICIO
+      RETORNA VDD
+    FIM
+  SENAO
+    INICIO
+      RETORNA FAL
+    FIM
+FIM
+
+SAIDA = PRIMO(4)

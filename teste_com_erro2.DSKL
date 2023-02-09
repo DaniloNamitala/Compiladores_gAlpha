@@ -1,0 +1,17 @@
+idade INTE = ENTRADA
+peso REAL = ENTRADA
+altura REAL = ENTRADA
+imc = peso DIV (altura MULT altura)
+Saida = idade
+SE imc < 18.5
+INICIO
+    SAIDA = "Magreza"
+FIM
+SE imc >= 30.
+INICIO
+    SAIDA = "Obesidade"
+FIM
+SENAO
+INICIO
+    SAIDA = "Normal"
+FIM
