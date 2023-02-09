@@ -1,4 +1,5 @@
-lexer grammar DeskLang;
+grammar DeskLang;
+
 fragment LETRA: [a-zA-Z];
 fragment NUMERO: [0-9];
 
@@ -25,3 +26,19 @@ IDENT: LETRA(LETRA|NUMERO)*;
 AP: '(';
 FP: ')';
 WS : [ \t\r\n]+ -> skip ;
+
+program: globalstatement+;
+functioncall: IDENT AP value? FP;
+function: DATATP? KWDO IDENT AP declaration FP KWBEGIN statement KWEND;
+globalstatement: statement | function;
+output: KWOUT VALATRIB value;
+input: IDENT VALATRIB KWIN;
+instruction: input | output;
+constant: INTECONST | REALCONST | CHARCONST;
+value: constant | IDENT | expr | logicalexpr;
+logicalexpr: AP logicalexpr FP | value LOGOP value;
+expr: AP expr FP | value ARITOP value;
+statement: declaration | condition | loop | instruction;
+condition: KWIF value KWBEGIN statement KWEND (KWELSE KWBEGIN statement KWEND)?;
+declaration: IDENT TPATRIB DATATP (VALATRIB value)?;
+loop: KWWHILE value KWBEGIN statement KWEND;
