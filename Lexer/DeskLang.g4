@@ -1,5 +1,7 @@
 grammar DeskLang;
 
+//lexer grammar DeskLang;
+
 fragment LETRA: [a-zA-Z];
 fragment NUMERO: [0-9];
 
@@ -36,8 +38,11 @@ input: IDENT VALATRIB KWIN;
 instruction: input | output;
 constant: INTECONST | REALCONST | CHARCONST;
 value: constant | IDENT | expr | logicalexpr;
-logicalexpr: AP logicalexpr FP | value LOGOP value;
-expr: AP expr FP | value ARITOP value;
+logicalexpr: AP logicalexpr FP logicalexpr2 | constant LOGOP value logicalexpr2| IDENT LOGOP value logicalexpr2| expr LOGOP value logicalexpr2;
+logicalexpr2: LOGOP value logicalexpr2| ;
+expr: AP expr FP expr2 | constant ARITOP value expr2 | IDENT ARITOP value expr2 | AP logicalexpr FP logicalexpr2 ARITOP value expr2
+      | constant LOGOP value logicalexpr2 ARITOP value expr2 | IDENT LOGOP value logicalexpr2 ARITOP value expr2;
+expr2:  ARITOP value expr2 |LOGOP value logicalexpr2 ARITOP value expr2| ;
 statement: declaration | condition | loop | instruction;
 condition: KWIF value KWBEGIN statement KWEND (KWELSE KWBEGIN statement KWEND)?;
 declaration: IDENT TPATRIB DATATP (VALATRIB value)?;
