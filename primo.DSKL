@@ -1,7 +1,7 @@
 BOOL FAZ primo(n : INTE)
 INICIO
-  resultado INTE = n MOD 2
-  SE INTE == 0
+  resultado: INTE = n MOD 2
+  SE resultado == 0
     INICIO
       RETORNA VDD
     FIM

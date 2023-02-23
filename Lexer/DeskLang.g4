@@ -8,7 +8,7 @@ output: KWOUT VALATRIB value;
 input: IDENT VALATRIB (KWIN|value);
 retorno: KWRETURN value;
 instruction: input | output | retorno;
-constant: INTECONST | REALCONST | CHARCONST;
+constant: INTECONST | REALCONST | CHARCONST | BOOLCONST;
 value: constant | IDENT | expr | logicalexpr | functioncall;
 logicalexpr: AP logicalexpr FP logicalexpr2 | constant LOGOP value logicalexpr2| IDENT LOGOP value logicalexpr2| expr LOGOP value logicalexpr2;
 logicalexpr2: LOGOP value logicalexpr2| ;
