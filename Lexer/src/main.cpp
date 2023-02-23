@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include "antlr4-runtime.h"
-#include "../lib/DeskLang.h"
+#include "../lib/DeskLangLexer.h"
+#include "../lib/DeskLangParser.h"
 
 using namespace std;
 using namespace antlr4;
@@ -13,15 +14,22 @@ int main(int argc, char** argv) {
   }
 
   char* filename = argv[1];
-  ifstream file(filename);
-  ANTLRInputStream stream(file);
-  DeskLang lexer(&stream);
 
-  while(!lexer.hitEOF) {
-    auto token = lexer.nextToken();
-    cout << "Token: " + token->toString() << endl;
-    cout << "   Lexema: " + token->getText() << endl;
-    cout << "   Classe: " + lexer.getVocabulary().getDisplayName(token->getType()) << endl;
-  }
+  ifstream file(filename);
+
+  ANTLRInputStream stream(file);
+  DeskLangLexer lexer(&stream);
+
+  CommonTokenStream tokens(&lexer);
+  DeskLangParser parser(&tokens);
+  
+  // while(!lexer.hitEOF) {
+  //   auto token = lexer.nextToken();
+  //   cout << "Token: " + token->toString() << endl;
+  //   cout << "   Lexema: " + token->getText() << endl;
+  //   cout << "   Classe: " + lexer.getVocabulary().getDisplayName(token->getType()) << endl;
+  // }
+  
+  cout << parser.program()->toStringTree() << endl;
   return 0;
 }

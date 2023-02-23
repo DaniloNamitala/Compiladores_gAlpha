@@ -13,10 +13,8 @@ GRAMMAR=DeskLang
 ANTLR4=antlr4
 
 ANTLRGEN=BaseListener Lexer Listener Parser 
-#OBJS=$(addsuffix .o,$(addprefix $(OUTPUT)/$(GRAMMAR),$(ANTLRGEN)))
-OBJS=$(addsuffix .o,$(OUTPUT)/$(GRAMMAR))
-#GSOURCES=$(addsuffix .cpp,$(addprefix $(GENERATED)/$(GRAMMAR),$(ANTLRGEN)))
-GSOURCES=$(addsuffix .cpp,$(GENERATED)/$(GRAMMAR))
+OBJS=$(addsuffix .o,$(addprefix $(OUTPUT)/$(GRAMMAR),$(ANTLRGEN)))
+GSOURCES=$(addsuffix .cpp,$(addprefix $(GENERATED)/$(GRAMMAR),$(ANTLRGEN)))
 
 .precious: $(GSOURCES)
 
@@ -29,7 +27,7 @@ parser: dirs antlr4 ./src/main.cpp $(OBJS)
 antlr4: $(GENERATED)/.generated;
  
 $(GENERATED)/.generated: $(GRAMMAR).g4
-	$(ANTLR4) -Dlanguage=Cpp -o $(GENERATED) $(GRAMMAR).g4
+	$(ANTLR4) -Dlanguage=Cpp -visitor -o $(GENERATED) $(GRAMMAR).g4
 	@touch $(GENERATED)/.generated
 
 $(OUTPUT)/%.o : $(GENERATED)/%.cpp
