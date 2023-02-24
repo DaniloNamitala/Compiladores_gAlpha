@@ -1,0 +1,13 @@
+REAL FAZ fatorial(n : MAIS)
+INICIO
+  aux : REAL = n
+  result : REAL = n
+  ENQUANTO aux > MAIS
+  INICIO
+    aux = aux MENOS 1
+    result = result MULT aux
+  FIM
+  RETORNA result
+FIM
+
+SAIDA = fatorial(5)

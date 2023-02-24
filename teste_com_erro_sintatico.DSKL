@@ -1,0 +1,4 @@
+semestre : REAL
+semestre = 2022.2
+
+SAIDA = semestre MAIS INTE
