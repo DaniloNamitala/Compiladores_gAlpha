@@ -1,24 +1,28 @@
 grammar DeskLang;
 
-program: globalstatement+EOF;
-functioncall: IDENT AP value? FP;
-function: DATATP? KWDO IDENT AP declaration FP KWBEGIN statement KWEND;
-globalstatement: statement | function;
-output: KWOUT VALATRIB value;
-input: IDENT VALATRIB (KWIN|value);
-retorno: KWRETURN value;
-instruction: input | output | retorno;
-constant: INTECONST | REALCONST | CHARCONST | BOOLCONST;
-value: constant | IDENT | expr | logicalexpr | functioncall;
-logicalexpr: AP logicalexpr FP logicalexpr2 | constant LOGOP value logicalexpr2| IDENT LOGOP value logicalexpr2| expr LOGOP value logicalexpr2;
-logicalexpr2: LOGOP value logicalexpr2| ;
-expr: AP expr FP expr2 | constant ARITOP value expr2 | IDENT ARITOP value expr2 | AP logicalexpr FP logicalexpr2 ARITOP value expr2
-      | constant LOGOP value logicalexpr2 ARITOP value expr2 | IDENT LOGOP value logicalexpr2 ARITOP value expr2;
-expr2:  ARITOP value expr2 |LOGOP value logicalexpr2 ARITOP value expr2| ;
-statement: (declaration | condition | loop | instruction)+;
-condition: KWIF value KWBEGIN statement KWEND (KWELSE KWBEGIN statement KWEND)?;
-declaration: IDENT TPATRIB DATATP (VALATRIB value)?;
-loop: KWWHILE value KWBEGIN statement KWEND;
+@header{
+ # include "antlr4-runtime.h"
+}
+
+program: globalstatement+EOF #Nprogram;
+functioncall: IDENT AP value? FP #Nfunctioncall;
+function: DATATP? KWDO IDENT AP declaration FP KWBEGIN statement KWEND #Nfunction;
+globalstatement: (statement | function) #Nglobalstatement;
+output: KWOUT VALATRIB value #Noutput;
+input: IDENT VALATRIB (KWIN|value) #Ninput;
+retorno: KWRETURN value #Nretorno;
+instruction: (input | output | retorno) #Ninstruction;
+constant: (INTECONST | REALCONST | CHARCONST | BOOLCONST) #Nconstant;
+value: (constant | IDENT | expr | logicalexpr | functioncall) #Nvalue;
+logicalexpr: (AP logicalexpr FP logicalexpr2 | constant LOGOP value logicalexpr2| IDENT LOGOP value logicalexpr2| expr LOGOP value logicalexpr2) #Nlogicalexpr;
+logicalexpr2: (LOGOP value logicalexpr2|) #Nlogicalexpr2 ;
+expr:( AP expr FP expr2 | constant ARITOP value expr2 | IDENT ARITOP value expr2 | AP logicalexpr FP logicalexpr2 ARITOP value expr2
+      | constant LOGOP value logicalexpr2 ARITOP value expr2 | IDENT LOGOP value logicalexpr2 ARITOP value expr2) #Nexpr;
+expr2:  (ARITOP value expr2 |LOGOP value logicalexpr2 ARITOP value expr2|) #Nexpr2 ;
+statement: (declaration | condition | loop | instruction)+ #Nstatement;
+condition: KWIF value KWBEGIN statement KWEND (KWELSE KWBEGIN statement KWEND)? #Ncondition;
+declaration: IDENT TPATRIB DATATP (VALATRIB value)? #Ndeclaration;
+loop: KWWHILE value KWBEGIN statement KWEND #Nloop;
 
 fragment LETRA: [a-zA-Z];
 fragment NUMERO: [0-9];
