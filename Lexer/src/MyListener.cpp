@@ -19,8 +19,24 @@ private:
     }
 
     void validaValorDestino(string tipoValor, string tipoDestino, string valor){
-        if(!equal(tipoValor.begin(), tipoValor.end(), tipoDestino.begin())){
-            cerr << "Invalid assignment: " << "valor " + tipoValor + " não pode ser atribuido a variavel do tipo " + tipoDestino << endl;
+        if(!tipoValor.empty()){
+            if(!equal(tipoValor.begin(), tipoValor.end(), tipoDestino.begin())){
+                cerr << "Invalid assignment: " << "valor " + tipoValor + " não pode ser atribuido a variavel do tipo " + tipoDestino << endl;
+            }
+        }else {
+            if (equal(tipoDestino.begin(), tipoDestino.end(), "INTE") && valor.find('"') != string::npos) {
+                cerr << "Invalid assignment: "
+                     << "valor " + valor + " não pode ser atribuido a variavel do tipo " + tipoDestino << endl;
+            } else if (equal(tipoDestino.begin(), tipoDestino.end(), "REAL") && valor.find('"') != string::npos) {
+                cerr << "Invalid assignment: "
+                     << "valor " + valor + " não pode ser atribuido a variavel do tipo " + tipoDestino << endl;
+            } else if (equal(tipoDestino.begin(), tipoDestino.end(), "INTE") && valor.find(".") != string::npos) {
+                cerr << "Invalid assignment: "
+                     << "valor " + valor + " não pode ser atribuido a variavel do tipo " + tipoDestino << endl;
+            } else if (equal(tipoDestino.begin(), tipoDestino.end(), "REAL") && valor.find(".") != string::npos) {
+                cerr << "Invalid assignment: "
+                     << "valor " + valor + " não pode ser atribuido a variavel do tipo " + tipoDestino << endl;
+            }
         }
     }
 
