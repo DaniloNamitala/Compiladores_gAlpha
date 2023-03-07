@@ -4,10 +4,10 @@ grammar DeskLang;
  # include "antlr4-runtime.h"
 }
 
-program: globalstatement+EOF #Nprogram;
+program: globalstatement EOF #Nprogram;
 functioncall: IDENT AP value? FP #Nfunctioncall;
 function: DATATP? KWDO IDENT AP declaration FP KWBEGIN statement KWEND #Nfunction;
-globalstatement: (statement | function) #Nglobalstatement;
+globalstatement: (statement | function)* #Nglobalstatement;
 output: KWOUT VALATRIB value #Noutput;
 input: IDENT VALATRIB (KWIN|value) #Ninput;
 retorno: KWRETURN value #Nretorno;
