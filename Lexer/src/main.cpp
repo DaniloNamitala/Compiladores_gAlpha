@@ -3,7 +3,7 @@
 #include "antlr4-runtime.h"
 #include "../lib/DeskLangLexer.h"
 #include "../lib/DeskLangParser.h"
-#include "MyListener.cpp"
+#include "MyListener.hpp"
 
 using namespace std;
 using namespace antlr4;
@@ -20,25 +20,15 @@ int main(int argc, char **argv)
 
   ifstream file(filename);
 
-  ANTLRInputStream stream(file);
-  DeskLangLexer lexer(&stream);
+  ANTLRInputStream* stream = new ANTLRInputStream(file);
+  DeskLangLexer* lexer = new DeskLangLexer(stream);
+  CommonTokenStream* tokens = new CommonTokenStream(lexer);
+  DeskLangParser* parser = new DeskLangParser(tokens);
 
-  CommonTokenStream tokens(&lexer);
-  DeskLangParser parser(&tokens);
+  MyListener* listener = new MyListener();
 
-  MyListener listener = *new MyListener();
-
-  parser.removeParseListeners();
-  parser.addParseListener(&listener);
-
-  cout << parser.program()->toStringTree() << endl;
-
-  // while(!lexer.hitEOF) {
-  //   auto token = lexer.nextToken();
-  //   cout << "Token: " + token->toString() << endl;
-  //   cout << "   Lexema: " + token->getText() << endl;
-  //   cout << "   Classe: " + lexer.getVocabulary().getDisplayName(token->getType()) << endl;
-  // }
-
+  parser->removeParseListeners();
+  tree::ParseTree* inicio = parser->program();
+  tree::ParseTreeWalker::DEFAULT.walk(listener, inicio);
   return 0;
 }
