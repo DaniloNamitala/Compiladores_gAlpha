@@ -25,10 +25,9 @@ int main(int argc, char **argv)
   CommonTokenStream* tokens = new CommonTokenStream(lexer);
   DeskLangParser* parser = new DeskLangParser(tokens);
 
-  MyListener* listener = new MyListener();
-
-  parser->removeParseListeners();
+  MyListener* listener = new MyListener(parser);
   tree::ParseTree* inicio = parser->program();
-  tree::ParseTreeWalker::DEFAULT.walk(listener, inicio);
+  tree::ParseTreeWalker* walker = new tree::ParseTreeWalker();
+  walker->walk(listener, inicio);
   return 0;
 }

@@ -31,8 +31,11 @@ class SymbolTable {
     };
 
     V get(K symbol) {
-      return table[symbol];
-    };
+      if (table.find(symbol) != table.end())
+        return table[symbol];
+      else 
+        return *new V;
+    }
 
     SymbolTable<K, V>* superScope() {
       return father;

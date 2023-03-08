@@ -19,7 +19,7 @@ logicalexpr: (AP logicalexpr FP logicalexpr2 | constant LOGOP value logicalexpr2
 logicalexpr2: (LOGOP value logicalexpr2|) #Nlogicalexpr2 ;
 expr:( AP expr FP expr2 | constant ARITOP value expr2 | IDENT ARITOP value expr2 | AP logicalexpr FP logicalexpr2 ARITOP value expr2
       | constant LOGOP value logicalexpr2 ARITOP value expr2 | IDENT LOGOP value logicalexpr2 ARITOP value expr2) #Nexpr;
-expr2:  (ARITOP value expr2 |LOGOP value logicalexpr2 ARITOP value expr2|) #Nexpr2 ;
+expr2:  (ARITOP value expr2 | LOGOP value logicalexpr2 ARITOP value expr2|) #Nexpr2 ;
 statement: (declaration | condition | loop | instruction)+ #Nstatement;
 condition: KWIF value block (KWELSE block)? #Ncondition;
 declaration: IDENT TPATRIB DATATP (VALATRIB value)? #Ndeclaration;

@@ -1,0 +1,8 @@
+CHAR FAZ func()
+INICIO
+  fff: INTE = 13
+FIM
+
+aaa: CHAR = 1.2
+bbb: INTE = 12
+aaa = func()
